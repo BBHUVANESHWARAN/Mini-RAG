@@ -238,7 +238,8 @@ Whether reranker loaded successfully
     "reranker_failed": false
    }
 
-Reranker Notes (Enhancement)
+
+Reranker Notes (Enhancement):
 
 A CrossEncoder-based reranker is provided in app/reranker.py.
 

@@ -67,16 +67,26 @@ Sanitizes backend errors (no raw tracebacks returned).
 Project Structure
 
 rag-api/
-├── README.md
-├── requirements.txt
-├── streamlit_app.py        # User-facing frontend
-├── app/
-│   ├── main.py             # API logic (upload, query, LCEL pipeline)
-│   ├── reranker.py         # CrossEncoder reranker (optional)
-│   ├── vectorstore.py      # FAISS + embeddings
-│   ├── utils.py            # parsing, chunking
-│   ├── schemas.py          # Pydantic models
-│   └── data/               # auto-created: faiss.index + meta.json
+
+    README.md
+
+    ├── requirements.txt
+
+    ├── streamlit_app.py        # User-facing frontend
+
+    ├── app/
+       
+           ├── main.py             # API logic (upload, query, LCEL pipeline)
+        
+           ├── reranker.py         # CrossEncoder reranker (optional)
+        
+           ├── vectorstore.py      # FAISS + embeddings
+        
+           ├── utils.py            # parsing, chunking
+        
+           ├── schemas.py          # Pydantic models
+        
+           └── data/               # auto-created: faiss.index + meta.json
 
 
 
@@ -102,10 +112,14 @@ requirements.txt — libraries required
 
 Installation:
 1. Create virtual environment
+
 Windows PowerShell
-python -m venv .venv
-. .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+
+     python -m venv .venv
+
+     . .venv\Scripts\Activate.ps1
+
+     pip install -r requirements.txt
 
 
 Configure Gemini API Key
@@ -113,7 +127,8 @@ Configure Gemini API Key
 If you want real LLM answers (instead of MockLLM):
 
 Windows (.env)
-GOOGLE_API_KEY "your_gemini_key_here"
+
+    GOOGLE_API_KEY "your_gemini_key_here"
 
 
 
@@ -124,7 +139,7 @@ Run Backend (FastAPI)
 
 Start the API:
 
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+    uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 
 Open:
@@ -136,12 +151,12 @@ Run Frontend (Streamlit UI)
 
 In another terminal:
 
-streamlit run streamlit_app.py
+    streamlit run streamlit_app.py
 
 
 It will open:
 
-http://localhost:8501
+    http://localhost:8501
 
 
 Features:
@@ -163,36 +178,51 @@ multipart/form-data
 Field: file=@document.pdf
 
 Response
-{
-  "success": true,
-  "message": "Indexed 12 chunks",
-  "uploaded_file": "test.pdf"
-}
+
+    {
+  
+    "success": true,
+  
+    "message": "Indexed 12 chunks",
+  
+    "uploaded_file": "test.pdf"
+
+    }
 
 POST /query
 
 Ask questions using RAG.
 
 Request
-{
-  "query": "What are the key points?",
-  "top_k": 5
-}
+
+    {
+
+    "query": "What are the key points?",
+  
+    "top_k": 5
+
+    }
 
 Response
-{
-  "answer": "... (with citations)",
-  "confidence": 0.42,
-  "safe": true,
-  "retrieved": [
+
     {
-      "chunk_id": "abc-123",
-      "text": "first part of document...",
-      "filename": "notes.txt",
-      "score": 0.78
+
+    "answer": "... (with citations)",
+  
+    "confidence": 0.42,
+  
+    "safe": true,
+  
+    "retrieved": [
+  
+       {
+        "chunk_id": "abc-123",
+        "text": "first part of document...",
+        "filename": "notes.txt",
+        "score": 0.78
+       }
+     ]
     }
-  ]
-}
 
 GET /ready
 
@@ -202,11 +232,11 @@ API running
 
 Whether reranker loaded successfully
 
-{
-  "ready": true,
-  "reranker_loaded": false,
-  "reranker_failed": false
-}
+    {
+    "ready": true,
+     "reranker_loaded": false,
+    "reranker_failed": false
+   }
 
 Reranker Notes (Enhancement)
 

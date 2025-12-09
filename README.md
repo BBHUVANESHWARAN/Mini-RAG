@@ -64,7 +64,7 @@ Validates file types and size.
 
 Sanitizes backend errors (no raw tracebacks returned).
 
- '''Project Structure
+ #Project Structure
 rag-api/
 ├── README.md
 ├── requirements.txt
@@ -77,7 +77,8 @@ rag-api/
 │   ├── schemas.py          # Pydantic models
 │   └── data/               # auto-created: faiss.index + meta.json
 
-'''
+
+
 What’s included: 
 
 app/

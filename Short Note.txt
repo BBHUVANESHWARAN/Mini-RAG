@@ -1,0 +1,97 @@
+Short Note About the Functionalities
+
+This project implements a small but complete Retrieval-Augmented Generation (RAG) system. It enables users to upload documents, index them, and generate AI-powered answers grounded strictly in the uploaded content. Below is a brief description of the core functionalities.
+
+1. Document Upload & Processing
+
+Users can upload PDF, TXT, or Markdown files.
+
+The backend extracts text, splits it into overlapping chunks for better retrieval coverage.
+
+Each chunk is converted into a vector embedding using a SentenceTransformers model.
+
+All embeddings are stored in a persistent FAISS vector index.
+
+Metadata stored: chunk_id, filename, page number, chunk number.
+
+This allows fast semantic search over document content.
+
+2. Retrieval & Reranking
+
+When a user submits a query:
+
+FAISS retrieval selects the top N relevant chunks using vector similarity.
+
+Optional second-stage CrossEncoder Reranking (on-demand) scores each chunk more accurately.
+
+The system selects the final top K chunks after reranking.
+
+This two-stage retrieval improves answer accuracy and reduces hallucination risk.
+
+3. Answer Generation (RAG LLM)
+
+Selected chunks are combined into a structured prompt with inline citations.
+
+The prompt is passed through a LangChain LCEL pipeline:
+
+PromptTemplate → Gemini LLM (or MockLLM) → StrOutputParser
+
+
+The LLM generates an answer strictly using the document snippets.
+
+Citations like (CHUNK_ID) appear in the response to indicate the source.
+
+4. Safety & Validation
+
+If retrieved similarity is too low, the system refuses to answer, ensuring:
+
+No hallucinations
+
+No answering unrelated questions
+
+Upload endpoint enforces:
+
+Allowed file types
+
+Max file size
+
+API responses never expose backend error traces (errors logged server-side only).
+
+5. Confidence Scoring
+
+A simple but effective confidence indicator is computed by averaging retrieval/rerank scores.
+Higher confidence indicates stronger grounding in document evidence.
+
+6. Streamlit Frontend
+
+A lightweight UI is provided to interact with the system:
+
+Upload documents
+
+Ask questions
+
+Inspect retrieved chunks
+
+View confidence scores and citations
+
+It communicates with the backend via HTTP and helps visualize the RAG pipeline.
+
+✔ Summary
+
+Overall, this RAG system provides:
+
+Document ingestion
+
+Semantic vector search
+
+Optional cross-encoder reranking
+
+LLM-based answer generation with grounding
+
+Safety validations
+
+Confidence estimation
+
+User-friendly Streamlit interface
+
+This fulfills all required components of a small, well-structured, and functional RAG-based API service.

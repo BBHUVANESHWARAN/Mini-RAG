@@ -1,0 +1,9 @@
+The LangChain Expression Language (LCEL) provides a declarative and composable way to build complex workflows within the LangChain framework. It allows for the chaining of different components, such as prompt templates, language models, retrievers, and output parsers, using a simple and intuitive pipe operator (|). 
+Key features and concepts of LCEL:
+Declarative Syntax: LCEL focuses on describing what you want to achieve rather than how to achieve it, abstracting away the underlying execution details.
+Composability: LCEL enables the combination of small, reusable components (called "Runnables") into sophisticated pipelines, promoting modularity and code reusability.
+Pipe Operator (|): This operator is central to LCEL, chaining components together. The output of the component on the left side of the pipe becomes the input for the component on the right.
+Runnables: At the core of LCEL are Runnables, which are modular components encapsulating functions or operations. Any two Runnables can be combined using the pipe operator. 
+Lazy Evaluation: Chains defined with LCEL are not executed until a method like .invoke(), .stream(), or .batch() is called, allowing for efficient resource management.
+Runtime Flexibility: LCEL pipelines can seamlessly operate in synchronous, asynchronous, streaming, and batch modes.
+Enhanced Readability and Maintainability: The visual, left-to-right flow of LCEL chains, similar to shell pipelines, improves code readability and makes it easier to understand and maintain complex workflows.    

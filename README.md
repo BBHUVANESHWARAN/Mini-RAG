@@ -64,7 +64,8 @@ Validates file types and size.
 
 Sanitizes backend errors (no raw tracebacks returned).
 
- #Project Structure
+Project Structure
+
 rag-api/
 ├── README.md
 ├── requirements.txt
